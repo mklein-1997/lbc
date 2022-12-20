@@ -20,6 +20,8 @@ public class Car {
         this.year = year;
         this.trackingId = randomUUID().toString();
         this.isAvailable = true;
+        this.dateRented = null;
+        this.returnDate = null;
     }
 
     public String getTrackingId() {

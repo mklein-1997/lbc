@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 public class CarCreateRequest {
 
-
     @NotEmpty
     @JsonProperty("make")
     private String make;
