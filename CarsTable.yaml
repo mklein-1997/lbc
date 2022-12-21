@@ -1,0 +1,14 @@
+Resources:
+  CartonsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      "AttributeDefinitions":
+        - "AttributeName": "trackingId"
+          "AttributeType": "S"
+      "KeySchema":
+        - "AttributeName": "trackingId"
+          "KeyType": "HASH"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      BillingMode: PAY_PER_REQUEST
+      TableName: "Cars"
