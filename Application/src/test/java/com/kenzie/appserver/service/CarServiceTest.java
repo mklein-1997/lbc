@@ -6,57 +6,68 @@ import com.kenzie.appserver.service.model.Car;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CarServiceTest {
-    private CarRepository exampleRepository;
-    private CarService exampleService;
+    private CarRepository carRepository;
+    private CarService carService;
 
     @BeforeEach
     void setup() {
-        exampleRepository = mock(CarRepository.class);
-        exampleService = new CarService(exampleRepository);
+        carRepository = mock(CarRepository.class);
+        carService = new CarService(carRepository);
     }
     /** ------------------------------------------------------------------------
-     *  exampleService.findById
+     *  carService.addCar()
      *  ------------------------------------------------------------------------ **/
 
-    //@Test
-    //void findById() {
-    //    // GIVEN
-    //    String id = randomUUID().toString();
+    @Test
+    public void addCar() {
+        //GIVEN
+        Car car = new Car("Chevrolet", "Camaro", 1977);
 
-    //    CarRecord record = new CarRecord();
-    //    record.setId(id);
-    //    record.setName("concertname");
+        ArgumentCaptor<CarRecord> carRecordCaptor = ArgumentCaptor.forClass(CarRecord.class);
 
-    //    // WHEN
-    //    when(exampleRepository.findById(id)).thenReturn(Optional.of(record));
-    //    Car example = exampleService.findById(id);
+        //WHEN
+        Car returnedCar = carService.addCar(car);
 
-        // THEN
-    //    Assertions.assertNotNull(example, "The object is returned");
-    //    Assertions.assertEquals(record.getId(), example.getId(), "The id matches");
-    //    Assertions.assertEquals(record.getName(), example.getName(), "The name matches");
-    //}
+        //THEN
+        Assertions.assertNotNull(returnedCar);
 
-    //@Test
-    //void findByConcertId_invalid() {
-    //    // GIVEN
-    //    String id = randomUUID().toString();
+        verify(carRepository).save(carRecordCaptor.capture());
 
-    //    when(exampleRepository.findById(id)).thenReturn(Optional.empty());
+        CarRecord record = carRecordCaptor.getValue();
 
-    //    // WHEN
-    //    Car example = exampleService.findById(id);
+        Assertions.assertNotNull(record, "The record is returned");
+        Assertions.assertEquals(record.getTrackingId(), car.getTrackingId(), "The tracking id matches");
+        Assertions.assertEquals(record.getMake(), car.getMake(), "The make matches");
+        Assertions.assertEquals(record.getModel(), car.getModel(), "The model matches");
+        Assertions.assertEquals(record.getYear(), car.getYear(), "The year matches");
+        Assertions.assertEquals(record.getIsAvailable(), car.getAvailable(), "The availability matches");
+        Assertions.assertEquals(record.getDateRented(), car.getDateRented(), "The rental date matches");
+        Assertions.assertEquals(record.getReturnDate(), car.getReturnDate(), "The return date matches");
+    }
 
-    //    // THEN
-    //    Assertions.assertNull(example, "The example is null when not found");
-    //}
+    /** ------------------------------------------------------------------------
+     *  carService.removeCar()
+     *  ------------------------------------------------------------------------ **/
+
+    @Test
+    public void removeCar() {
+        //GIVEN
+        String trackingId = randomUUID().toString();
+
+        //WHEN
+        carService.removeCar(trackingId);
+
+        //THEN
+        verify(carRepository).deleteById(trackingId);
+
+    }
 
 }
