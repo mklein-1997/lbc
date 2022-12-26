@@ -4,13 +4,14 @@ import com.kenzie.appserver.controller.model.CarCreateRequest;
 import com.kenzie.appserver.controller.model.CarResponse;
 import com.kenzie.appserver.service.CarService;
 
+import com.kenzie.appserver.service.model.Car;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping("/example")
+@RequestMapping("/Cars")
 public class CarController {
 
     private CarService carService;
@@ -19,22 +20,21 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CarResponse> get(@PathVariable("id") String id) {
-
-
-
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping("/{trackingId}")
+//    public ResponseEntity<CarResponse> getCarStatus(@PathVariable("trackingId") String trackingId) {
+//
+//
+//        return ResponseEntity.ok().build();
+//    }
 
     //Commented out so the code would compile
 
-    //@PostMapping
-    //public ResponseEntity<CarResponse> addNewConcert(@RequestBody CarCreateRequest exampleCreateRequest) {
+    @PostMapping
+    public ResponseEntity<CarResponse> addCar(@RequestBody CarCreateRequest carCreateRequest) {
 
 
-    //    CarResponse exampleResponse = new CarResponse();
+        CarResponse carResponse = new CarResponse();
 
-    //    return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
-    //}
+        return ResponseEntity.created(URI.create("/example/" + exampleResponse.getId())).body(exampleResponse);
+    }
 }
