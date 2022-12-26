@@ -1,0 +1,67 @@
+import BaseClass from "../util/baseClass";
+import DataStore from "../util/DataStore";
+import ExampleClient from "../api/inventoryClient";
+
+lass InventoryPage extends BaseClass {
+
+    constructor() {
+        super();
+        this.bindClassMethods(['onAllCars', 'renderAllCars'], this);
+        this.dataStore = new DataStore();
+    }
+
+    /**
+     * Event handlers
+     */
+    async mount() {
+        this.client = new InventoryClient();
+
+        this.dataStore.addChangeListener(this.renderAllCars);
+        this.onAllCars();
+    }
+
+    // Render Methods --------------------------------------------------------------------------------------------------
+
+    async renderAllCars() {
+        let resultArea = document.getElementById("result-area");
+
+        const allCars = this.dataStore.get("allCars");
+
+        let html = "";
+                for (let car of allCars) {
+                    html += "<div class='content'>";
+                    html += "<img src='https://cdn.motor1.com/images/mgl/qzbeZ/s2/ferrari-488-pista-spider.jpg'>";
+                    html += `<h3>${car.make} ${car.model}<h3>
+                             <ul>
+                                <li>Make: ${car.make}</li>
+                                <li>Model: ${car.model}</li>
+                                <li>Year: ${car.year}</li>
+                                <li>Tracking ID: ${car.trackingId}</li>
+                            </ul>`;
+                    html += "<button class='button-1'>Copy ID</button>";
+                    html += "</div>";
+                }
+
+        if (allCars) {
+            resultArea.innerHTML = html;
+        }
+    }
+
+    // Event Handlers --------------------------------------------------------------------------------------------------
+
+    async onAllCars() {
+        let result = await this.client.getAllCarsStatus(this.errorHandler);
+        this.dataStore.set("allCars", result);
+    }
+
+}
+
+/**
+ * Main method to run when the page contents have loaded.
+ */
+const main = async () => {
+    const inventoryPage = new InventoryPage();
+    inventoryPage.mount();
+};
+
+window.addEventListener('DOMContentLoaded', main);
