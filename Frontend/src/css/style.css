@@ -87,3 +87,109 @@
 .state.active {
     display: block;
 }
+
+#add-car-service-car {
+    display: flex;
+}
+
+#add-car-service-car:first-of-type section:nth-of-type(2) {
+    transform: translateX(150px);
+}
+
+#delete-car-rent-car {
+    display: flex;
+}
+
+#available-cars-return-car {
+    display: flex;
+}
+
+#get-cars {
+    padding: 30px;
+}
+
+#delete-car-rent-car section:nth-of-type(2) {
+    transform: translateX(150px);
+}
+
+#available-cars-return-car {
+    display: flex;
+}
+
+#available-cars-return-car section:nth-of-type(2) {
+    transform: translateX(150px)
+}
+
+#details {
+    display: flex;
+    transform: translateX(25px);
+}
+
+#second-details{
+    transform: translateX(175px);
+}
+
+#third-details{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#fixed-find-car {
+    position: absolute;
+    top: 10%;
+    left: 795px;
+    max-width:400px;
+    min-width:400px;
+    max-height:100px;
+    min-height:100px;
+}
+
+#find-car {
+    min-width:500px;
+}
+
+@media (max-width: 1000px) {
+    #fixed-find-car #find-car-flex-grid {
+        font-weight: 100;
+        font-size: 3rem;
+    }
+}
+
+#mainNavbar {
+    font-family: "Nunito", sans-serif;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#img {
+    padding: 30px;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+}
+
+#services {
+    padding-left: 20px;
+    margin-top: 50px;
+}
+
+#find-car-button {
+    padding: 5px;
+    margin-bottom: 16px;
+    margin-left: 5px;
+}
+
+#find-car-form {
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-left: 145px;
+    margin-bottom: -10px;
+}
