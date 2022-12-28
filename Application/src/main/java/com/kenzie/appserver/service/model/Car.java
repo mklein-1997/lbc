@@ -6,7 +6,7 @@ import java.util.UUID;
 import static java.util.UUID.randomUUID;
 
 public class Car {
-    private final String trackingId;
+    private String trackingId;
     private final String make;
     private final String model;
     private final int year;
@@ -26,6 +26,10 @@ public class Car {
 
     public String getTrackingId() {
         return trackingId;
+    }
+
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
     }
 
     public String getMake() {
