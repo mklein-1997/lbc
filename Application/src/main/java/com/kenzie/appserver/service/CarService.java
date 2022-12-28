@@ -90,8 +90,8 @@ public class CarService {
 
         Iterable<CarRecord> carIterator = carRepository.findAll();
         carIterator.forEach(carRecord -> {
-            if (carRecord.getIsAvailable()) {
-                if (!(carRecord.getDateRented() == null) || !(carRecord.getReturnDate() == null)) {
+            if (!carRecord.getIsAvailable()) {
+                if (carRecord.getDateRented() == null && carRecord.getReturnDate() == null) {
                     Car car = new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear());
                     car.setTrackingId(carRecord.getTrackingId());
                     car.setAvailable(carRecord.getIsAvailable());
