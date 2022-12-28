@@ -8,7 +8,10 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js'),
+    availabilityPage: path.resolve(__dirname, 'src', 'pages', 'availabilityPage.js'),
+    inServicePage: path.resolve(__dirname, 'src', 'pages', 'inServicePage.js'),
+    inventoryPage: path.resolve(__dirname, 'src', 'pages', 'inventoryPage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -31,6 +34,21 @@ module.exports = {
       filename: 'index.html',
       inject: false
     }),
+    new HtmlWebpackPlugin({
+          template: './src/availability.html',
+          filename: 'availability.html',
+          inject: false
+        }),
+    new HtmlWebpackPlugin({
+          template: './src/inService.html',
+          filename: 'inService.html',
+          inject: false
+        }),
+    new HtmlWebpackPlugin({
+              template: './src/inventory.html',
+              filename: 'inventory.html',
+              inject: false
+            }),
     new CopyPlugin({
       patterns: [
         {

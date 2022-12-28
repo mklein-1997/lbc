@@ -1,8 +1,8 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/inventoryClient";
+import InventoryClient from "../api/inventoryClient";
 
-lass InventoryPage extends BaseClass {
+class InventoryPage extends BaseClass {
 
     constructor() {
         super();
@@ -44,6 +44,8 @@ lass InventoryPage extends BaseClass {
 
         if (allCars) {
             resultArea.innerHTML = html;
+        } else {
+            resultArea.innerHTML = "No cars";
         }
     }
 

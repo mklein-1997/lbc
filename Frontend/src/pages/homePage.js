@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/inventoryClient";
+import InventoryClient from "../api/inventoryClient";
 
 class HomePage extends BaseClass {
 

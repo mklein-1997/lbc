@@ -1,8 +1,8 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/inventoryClient";
+import InventoryClient from "../api/inventoryClient";
 
-lass AvailabilityPage extends BaseClass {
+class AvailabilityPage extends BaseClass {
 
     constructor() {
         super();
