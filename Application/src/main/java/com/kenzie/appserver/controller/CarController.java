@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cars")
@@ -21,16 +23,32 @@ public class CarController {
         this.carService = carService;
     }
 
-//    @GetMapping("/{trackingId}")
-//    public ResponseEntity<CarResponse> getCarStatus(@PathVariable("trackingId") String trackingId) {
-//        Car car = carService.getCarStatus(trackingId);
-//
-//        if(car == null){
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        return ResponseEntity.ok().body(carToResponse(car));
-//    }
+    @GetMapping("/{trackingId}")
+    public ResponseEntity<CarResponse> getCarStatus(@PathVariable("trackingId") String trackingId) {
+        Car car = carService.getCarStatus(trackingId);
+
+        if(car == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(carToResponse(car));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CarResponse>> getAllCarsStatus() {
+        List<Car> cars = carService.getAllCarsStatus();
+
+        if (cars == null || cars.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        List<CarResponse> carResponses = new ArrayList<>();
+        for (Car car : cars) {
+            carResponses.add(carToResponse(car));
+        }
+
+        return ResponseEntity.ok().body(carResponses);
+    }
 
 
     @PostMapping
