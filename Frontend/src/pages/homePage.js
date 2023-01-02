@@ -6,7 +6,7 @@ class HomePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onAllCars', 'onAddCar', 'onServiceCar', 'onDeleteCar', 'onRentCar',
+        this.bindClassMethods(['onGetCars', 'onAddCar', 'onServiceCar', 'onDeleteCar', 'onRentCar',
         'onReturnCar', 'onFindCar'], this);
         this.dataStore = new DataStore();
     }
@@ -23,27 +23,36 @@ class HomePage extends BaseClass {
         document.getElementById('return-car-form').addEventListener('submit', this.onReturnCar);
         document.getElementById('find-car-form').addEventListener('submit', this.onFindCar);
         this.client = new InventoryClient();
+        this.onGetCars();
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
+    async onGetCars() {
+            let result = await this.client.getAllCarsStatus(this.errorHandler);
+            this.dataStore.set("cars", result);
+        }
+
     async onAddCar(event) {
-        // Preventing page from refreshing on form submit
+
         event.preventDefault();
-      //  this.dataStore.set("cars", null); // should we keep dataStore?
+
+        this.dataStore.set("car", null);
 
         let make = document.getElementById("car-make").value;
         let model = document.getElementById("car-model").value;
         let year = document.getElementById("car-year").value;
 
         const addedCar = await this.client.addCar(make, model, year, this.errorHandler);
-      //  this.dataStore.set("cars", addedCar); // should we keep dataStore?
+        this.dataStore.set("car", addedCar);
 
         if (addedCar) {
             this.showMessage(`Added ${addedCar.make}!`);
         } else {
             this.errorHandler("Error adding car! Try again...");
         }
+
+        this.onGetCars;
     }
 
     async onServiceCar(event) {
@@ -78,6 +87,8 @@ class HomePage extends BaseClass {
         } else {
             this.errorHandler("Error removing car! Try again...");
         }
+
+        this.onGetCars;
     }
 
     async onRentCar(event) {
@@ -131,28 +142,28 @@ class HomePage extends BaseClass {
         let secondResultArea = document.getElementById("second-details");
         let thirdResultArea = document.getElementById("third-details");
 
-        /*const example = this.dataStore.get("example");*/
+        let car = this.dataStore.get("car");
 
-        if (carFound) {
+        if (car) {
             firstResultArea.innerHTML = `
-                <div>Make: ${carFound.make}</div>
-                <div>Model: ${carFound.model}</div>
-                <div>Year: ${carFound.year}</div>
+                <div>Make: ${car.make}</div>
+                <div>Model: ${car.model}</div>
+                <div>Year: ${car.year}</div>
             `;
 
             secondResultArea.innerHTML = `
-                <div>Available: ${carFound.isAvailable}</div>
-                <div>Tracking ID: ${carFound.trackingId}</div>
-                <div>Date Rented: ${carFound.dateRented}</div>
+                <div>Available: ${car.isAvailable}</div>
+                <div>Tracking ID: ${car.trackingId}</div>
+                <div>Date Rented: ${car.dateRented}</div>
             `;
 
             thirdResultArea.innerHTML = `
-                <div>Return Date: ${carFound.returnDate}</div>
+                <div>Return Date: ${car.returnDate}</div>
             `;
         } else {
             this.errorHandler("Error: Could not find car with given ID");
         }
-
+        this.onGetCars;
     }
 
     // belongs on all cars page?

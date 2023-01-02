@@ -125,8 +125,13 @@
     transform: translateX(25px);
 }
 
+#first-details{
+    max-width: 200px;
+}
+
 #second-details{
     transform: translateX(175px);
+    max-width: 200px;
 }
 
 #third-details{
@@ -146,7 +151,7 @@
 }
 
 #find-car {
-    min-width:500px;
+    min-width:575px;
 }
 
 @media (max-width: 1000px) {
