@@ -24,6 +24,17 @@ public class Car {
         this.returnDate = null;
     }
 
+    public Car(String make, String model, int year, String trackingId, Boolean isAvailable, String dateRented,
+               String returnDate){
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.trackingId = trackingId;
+        this.isAvailable = isAvailable;
+        this.dateRented = dateRented;
+        this.returnDate = returnDate;
+    }
+
     public String getTrackingId() {
         return trackingId;
     }
