@@ -33,17 +33,7 @@ public class CarService {
     }
 
     public Car removeCar(String trackingId) {
-        Car carFromBackend = carRepository
-                .findById(new CarPrimaryKey(trackingId))
-                .map(carRecord -> new Car(carRecord.getMake(),
-                        carRecord.getModel(),
-                        carRecord.getYear(),
-                        carRecord.getTrackingId(),
-                        carRecord.getIsAvailable(),
-                        carRecord.getDateRented(),
-                        carRecord.getReturnDate()))
-                .orElse(null);
-
+        Car carFromBackend = findById(new CarPrimaryKey(trackingId));
         carRepository.deleteById(new CarPrimaryKey(trackingId));
         return carFromBackend;
     }
@@ -53,16 +43,7 @@ public class CarService {
             throw new CarNotFoundException("trackingId must not be null or empty!");
         }
 
-        Car carFromBackend = carRepository
-                .findById(new CarPrimaryKey(trackingId))
-                .map(carRecord -> new Car(carRecord.getMake(),
-                        carRecord.getModel(),
-                        carRecord.getYear(),
-                        carRecord.getTrackingId(),
-                        carRecord.getIsAvailable(),
-                        carRecord.getDateRented(),
-                        carRecord.getReturnDate()))
-                .orElse(null);
+        Car carFromBackend = findById(new CarPrimaryKey(trackingId));
 
         if (carFromBackend == null) {
             throw new CarNotFoundException("Car with associated trackingId not found!");
@@ -75,12 +56,7 @@ public class CarService {
         List<Car> carList = new ArrayList<>();
 
         Iterable<CarRecord> carIterator = carRepository.findAll();
-        carIterator.forEach(carRecord -> {
-            Car car = new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
-                    carRecord.getTrackingId(), carRecord.getIsAvailable(), carRecord.getDateRented(),
-                    carRecord.getReturnDate());
-            carList.add(car);
-        });
+        carIterator.forEach(carRecord -> carList.add(recordToCar(carRecord)));
 
         return carList;
     }
@@ -91,10 +67,7 @@ public class CarService {
         Iterable<CarRecord> carIterator = carRepository.findAll();
         carIterator.forEach(carRecord -> {
             if (carRecord.getIsAvailable()) {
-                Car car = new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
-                        carRecord.getTrackingId(), carRecord.getIsAvailable(), carRecord.getDateRented(),
-                        carRecord.getReturnDate());
-                carList.add(car);
+                carList.add(recordToCar(carRecord));
             }
         });
 
@@ -108,15 +81,26 @@ public class CarService {
         carIterator.forEach(carRecord -> {
             if (!carRecord.getIsAvailable()) {
                 if (carRecord.getDateRented() == null && carRecord.getReturnDate() == null) {
-                    Car car = new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
-                            carRecord.getTrackingId(), carRecord.getIsAvailable(), carRecord.getDateRented(),
-                            carRecord.getReturnDate());
-                    carList.add(car);
+                    carList.add(recordToCar(carRecord));
                 }
             }
         });
 
         return carList;
     }
-    
+
+    public Car findById(CarPrimaryKey id) {
+        return carRepository
+                .findById(id)
+                .map(carRecord -> new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
+                        carRecord.getTrackingId(), carRecord.getIsAvailable(), carRecord.getDateRented(),
+                        carRecord.getReturnDate()))
+                .orElse(null);
+    }
+
+    public Car recordToCar(CarRecord carRecord) {
+        return new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
+                carRecord.getTrackingId(), carRecord.getIsAvailable(), carRecord.getDateRented(),
+                carRecord.getReturnDate());
+    }
 }

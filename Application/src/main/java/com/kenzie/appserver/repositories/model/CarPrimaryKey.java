@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class CarPrimaryKey {
 
-    private final String trackingId;
+    private final String id;
 
     public CarPrimaryKey(String trackingId) {
-        this.trackingId = trackingId;
+        this.id = trackingId;
     }
 
     @Override
@@ -15,11 +15,11 @@ public class CarPrimaryKey {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarPrimaryKey that = (CarPrimaryKey) o;
-        return Objects.equals(trackingId, that.trackingId);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trackingId);
+        return Objects.hash(id);
     }
 }

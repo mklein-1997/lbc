@@ -20,8 +20,8 @@ public class Car {
         this.year = year;
         this.trackingId = randomUUID().toString();
         this.isAvailable = true;
-        this.dateRented = null;
-        this.returnDate = null;
+        this.dateRented = "N/A";
+        this.returnDate = "N/A";
     }
 
     public Car(String make, String model, int year, String trackingId, Boolean isAvailable, String dateRented,
