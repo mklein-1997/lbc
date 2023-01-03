@@ -1,8 +1,10 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.CarRepository;
+import com.kenzie.appserver.repositories.model.CarPrimaryKey;
 import com.kenzie.appserver.repositories.model.CarRecord;
 import com.kenzie.appserver.service.model.Car;
+import com.kenzie.appserver.service.model.CarNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,8 +68,51 @@ public class CarServiceTest {
         carService.removeCar(trackingId);
 
         //THEN
-        verify(carRepository).deleteById(trackingId);
+        verify(carRepository).deleteById(new CarPrimaryKey(trackingId));
 
     }
+
+    /** ------------------------------------------------------------------------
+     *  carService.getCarStatus()
+     *  ------------------------------------------------------------------------ **/
+
+    @Test
+    public void getCarStatus() {
+        //GIVEN
+        Car testCar = new Car("Chevrolet", "Camaro", 1977,
+                randomUUID().toString(), true, "N/A", "N/A");
+
+        CarRecord record = carService.carToRecord(testCar);
+        when(carRepository.findById(any())).thenReturn(Optional.of(record));
+
+        //WHEN
+        Car result = carService.getCarStatus(testCar.getTrackingId());
+
+        //THEN
+        Assertions.assertEquals(testCar, result, "getCarStatus returns the correct data");
+    }
+
+    @Test
+    public void getCarStatus_invalidData_throwsCarNotFoundException() {
+        //GIVEN
+        String trackingId = "";
+
+        //WHEN && THEN
+        Assertions.assertThrows(CarNotFoundException.class, () ->
+                carService.getCarStatus(trackingId));
+    }
+
+    @Test
+    public void getCarStatus_repoReturnsNull_throwsCarNotFoundException() {
+        //GIVEN
+        String trackingId = randomUUID().toString();
+
+        when(carRepository.findById(any())).thenReturn(Optional.empty());
+
+        //WHEN && THEN
+        Assertions.assertThrows(CarNotFoundException.class, () ->
+                carService.getCarStatus(trackingId));
+    }
+
 
 }
