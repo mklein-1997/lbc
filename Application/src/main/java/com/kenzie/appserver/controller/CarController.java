@@ -34,7 +34,7 @@ public class CarController {
         return ResponseEntity.ok().body(carToResponse(car));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<CarResponse>> getAllCarsStatus() {
         List<Car> cars = carService.getAllCarsStatus();
 
