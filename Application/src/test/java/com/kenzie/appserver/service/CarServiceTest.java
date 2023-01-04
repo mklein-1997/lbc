@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
@@ -82,7 +83,15 @@ public class CarServiceTest {
         Car testCar = new Car("Chevrolet", "Camaro", 1977,
                 randomUUID().toString(), true, "N/A", "N/A");
 
-        CarRecord record = carService.carToRecord(testCar);
+        CarRecord record = new CarRecord();
+        record.setMake(testCar.getMake());
+        record.setModel(testCar.getModel());
+        record.setYear(testCar.getYear());
+        record.setTrackingId(testCar.getTrackingId());
+        record.setAvailable(testCar.getAvailable());
+        record.setDateRented(testCar.getDateRented());
+        record.setReturnDate(testCar.getReturnDate());
+
         when(carRepository.findById(any())).thenReturn(Optional.of(record));
 
         //WHEN
@@ -114,5 +123,16 @@ public class CarServiceTest {
                 carService.getCarStatus(trackingId));
     }
 
+    /** ------------------------------------------------------------------------
+     *  carService.getAllCarsStatus()
+     *  ------------------------------------------------------------------------ **/
 
+    @Test
+    public void getAllCarsStatus_emptyIterator_throwsCarNotFoundException() {
+        //GIVEN
+        when(carRepository.findAll()).thenReturn(new ArrayList<>());
+
+        //WHEN && THEN
+        Assertions.assertThrows(CarNotFoundException.class, () -> carService.getAllCarsStatus());
+    }
 }

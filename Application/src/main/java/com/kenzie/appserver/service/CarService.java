@@ -6,6 +6,7 @@ import com.kenzie.appserver.repositories.CarRepository;
 import com.kenzie.appserver.service.model.Car;
 
 import com.kenzie.appserver.service.model.CarNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 public class CarService {
     private CarRepository carRepository;
 
+    @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
@@ -56,6 +58,11 @@ public class CarService {
         List<Car> carList = new ArrayList<>();
 
         Iterable<CarRecord> carIterator = carRepository.findAll();
+
+        if (!carIterator.iterator().hasNext()) {
+            throw new CarNotFoundException("No cars in inventory!");
+        }
+
         carIterator.forEach(carRecord -> carList.add(recordToCar(carRecord)));
 
         return carList;
@@ -65,6 +72,11 @@ public class CarService {
         List<Car> carList = new ArrayList<>();
 
         Iterable<CarRecord> carIterator = carRepository.findAll();
+
+        if (!carIterator.iterator().hasNext()) {
+            throw new CarNotFoundException("No cars in inventory!");
+        }
+
         carIterator.forEach(carRecord -> {
             if (carRecord.getIsAvailable()) {
                 carList.add(recordToCar(carRecord));
@@ -78,6 +90,11 @@ public class CarService {
         List<Car> carList = new ArrayList<>();
 
         Iterable<CarRecord> carIterator = carRepository.findAll();
+
+        if (!carIterator.iterator().hasNext()) {
+            throw new CarNotFoundException("No cars in inventory!");
+        }
+
         carIterator.forEach(carRecord -> {
             if (!carRecord.getIsAvailable()) {
                 if (carRecord.getDateRented() == null && carRecord.getReturnDate() == null) {
