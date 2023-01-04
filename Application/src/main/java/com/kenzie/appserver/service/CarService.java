@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.repositories.model.CarPrimaryKey;
 import com.kenzie.appserver.repositories.model.CarRecord;
 import com.kenzie.appserver.repositories.CarRepository;
 import com.kenzie.appserver.service.model.Car;
@@ -61,7 +62,7 @@ public class CarService {
         if (!carIterator.iterator().hasNext()) {
             throw new CarNotFoundException("No cars in inventory!");
         }
-        
+
         carIterator.forEach(carRecord -> carList.add(recordToCar(carRecord)));
 
         return carList;
