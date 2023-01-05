@@ -77,7 +77,7 @@ import axios from 'axios'
 
      async getAllCarsStatus(errorCallback) {
         try {
-            const response = await this.client.get(`/cars`);
+            const response = await this.client.get("/cars/all");
             return response.data;
         } catch (error) {
             this.handleError("getAllCarsStatus", error, errorCallback);

@@ -35,8 +35,8 @@ public class CarService {
     }
 
     public Car removeCar(String trackingId) {
-        Car carFromBackend = findById(new CarPrimaryKey(trackingId));
-        carRepository.deleteById(new CarPrimaryKey(trackingId));
+        Car carFromBackend = findById(trackingId);
+        carRepository.deleteById(trackingId);
         return carFromBackend;
     }
 
@@ -45,7 +45,7 @@ public class CarService {
             throw new CarNotFoundException("trackingId must not be null or empty!");
         }
 
-        Car carFromBackend = findById(new CarPrimaryKey(trackingId));
+        Car carFromBackend = findById(trackingId);
 
         if (carFromBackend == null) {
             throw new CarNotFoundException("Car with associated trackingId not found!");
@@ -106,7 +106,7 @@ public class CarService {
         return carList;
     }
 
-    public Car findById(CarPrimaryKey id) {
+    public Car findById(String id) {
         return carRepository
                 .findById(id)
                 .map(carRecord -> new Car(carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),

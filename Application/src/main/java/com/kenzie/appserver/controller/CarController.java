@@ -34,7 +34,7 @@ public class CarController {
         return ResponseEntity.ok().body(carToResponse(car));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CarResponse>> getAllCarsStatus() {
         List<Car> cars = carService.getAllCarsStatus();
 
@@ -47,7 +47,7 @@ public class CarController {
             carResponses.add(carToResponse(car));
         }
 
-        return ResponseEntity.ok().body(carResponses);
+        return ResponseEntity.ok(carResponses);
     }
 
 
@@ -61,7 +61,7 @@ public class CarController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok().body(carToResponse(car));
+        return ResponseEntity.created(URI.create("/cars/" + carToResponse(car).getTrackingId())).body(carToResponse(car));
     }
 
     @DeleteMapping("/{trackingId}")

@@ -8,5 +8,5 @@ import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
 
 @EnableScan
-public interface CarRepository extends CrudRepository<CarRecord, CarPrimaryKey> {
+public interface CarRepository extends CrudRepository<CarRecord, String> {
 }
