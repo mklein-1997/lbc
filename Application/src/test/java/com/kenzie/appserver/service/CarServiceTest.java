@@ -1,7 +1,6 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.CarRepository;
-import com.kenzie.appserver.repositories.model.CarPrimaryKey;
 import com.kenzie.appserver.repositories.model.CarRecord;
 import com.kenzie.appserver.service.model.Car;
 import com.kenzie.appserver.service.model.CarNotFoundException;
@@ -25,7 +24,7 @@ public class CarServiceTest {
         carRepository = mock(CarRepository.class);
         carService = new CarService(carRepository);
     }
-    /** ------------------------------------------------------------------------
+     /** ------------------------------------------------------------------------
      *  carService.addCar()
      *  ------------------------------------------------------------------------ **/
 
@@ -69,7 +68,7 @@ public class CarServiceTest {
         carService.removeCar(trackingId);
 
         //THEN
-        verify(carRepository).deleteById(new CarPrimaryKey(trackingId));
+        verify(carRepository).deleteById(trackingId);
 
     }
 

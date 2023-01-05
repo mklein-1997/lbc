@@ -3,12 +3,13 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Cars")
 public class CarRecord {
-
+    @Id
     private String trackingId;
     private String make;
     private String model;

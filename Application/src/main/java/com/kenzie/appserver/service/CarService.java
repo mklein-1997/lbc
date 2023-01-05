@@ -1,6 +1,5 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.model.CarPrimaryKey;
 import com.kenzie.appserver.repositories.model.CarRecord;
 import com.kenzie.appserver.repositories.CarRepository;
 import com.kenzie.appserver.service.model.Car;

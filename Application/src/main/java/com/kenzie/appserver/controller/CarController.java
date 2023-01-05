@@ -25,7 +25,7 @@ public class CarController {
 
     @GetMapping("/{trackingId}")
     public ResponseEntity<CarResponse> getCarStatus(@PathVariable("trackingId") String trackingId) {
-        Car car = carService.getCarStatus(trackingId);
+        Car car = carService.findById(trackingId);
 
         if(car == null){
             return ResponseEntity.notFound().build();

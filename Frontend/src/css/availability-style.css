@@ -49,7 +49,7 @@ ul {
     list-style: none;
 }
 
-button {
+/*button {
     text-align: center;
     font-size: 24px;
     color: #fff;
@@ -59,10 +59,28 @@ button {
     outline: none;
     cursor: pointer;
     margin-top: 5px;
-}
+}*/
 
 .button-1 {
-    background: #2183a2;
+    background: #2183a2; /*this was the only one alone*/
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-bottom: -10px;
+        border-radius: 0px 0px 20px 20px;
+}
+
+#font {
+    font-size: 20px;
+    margin-left: -10px;
+    text-align: left;
+    padding: 3px;
 }
 
 @media(max-width: 1000px) {
