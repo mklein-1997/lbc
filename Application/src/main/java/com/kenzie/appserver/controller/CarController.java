@@ -122,6 +122,9 @@ public class CarController {
         return ResponseEntity.ok(carResponses);
     }
 
+//    @PutMapping
+//    public ResponseEntity<CarResponse> updateAvailabilityStatus{}
+
     private CarResponse carToResponse(Car car){
         CarResponse carResponse = new CarResponse();
         carResponse.setId(car.getId());
