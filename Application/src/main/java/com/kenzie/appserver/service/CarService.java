@@ -97,7 +97,47 @@ public class CarService {
         return carList;
     }
 
-    public Car recordToCar(CarRecord carRecord) {
+    public Car rentCar(String id, String dateRented, String returnDate) {
+        Car carFromBackend = findById(id);
+
+        if (carFromBackend == null) {
+            throw new CarNotFoundException("Id provided does not match current inventory!");
+        }
+
+        carFromBackend.setAvailable(false);
+        carFromBackend.setDateRented(dateRented);
+        carFromBackend.setReturnDate(returnDate);
+
+        return carFromBackend;
+    }
+
+    public Car serviceCar(String id) {
+        Car carFromBackend = findById(id);
+
+        if (carFromBackend == null) {
+            throw new CarNotFoundException("Id provided does not match current inventory!");
+        }
+
+        carFromBackend.setAvailable(false);
+
+        return carFromBackend;
+    }
+
+    public Car returnCar(String id) {
+        Car carFromBackend = findById(id);
+
+        if (carFromBackend == null) {
+            throw new CarNotFoundException("Id provided does not match current inventory!");
+        }
+
+        carFromBackend.setAvailable(true);
+        carFromBackend.setDateRented("N/A");
+        carFromBackend.setReturnDate("N/A");
+
+        return carFromBackend;
+    }
+
+    private Car recordToCar(CarRecord carRecord) {
         return new Car(carRecord.getId(), carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
                 carRecord.getAvailable(), carRecord.getDateRented(), carRecord.getReturnDate());
     }
