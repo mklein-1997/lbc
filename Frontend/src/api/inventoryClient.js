@@ -10,7 +10,7 @@ import axios from 'axios'
     constructor(props = {}) {
         super();
         const methodsToBind = ['clientLoaded', 'addCar', 'removeCar', 'getCarStatus', 'updateAvailabilityStatus',
-        'getAllCarsStatus'];
+        'getAllCarsStatus', 'getAvailableCars', 'getCarsInService'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -62,6 +62,33 @@ import axios from 'axios'
         }
      }
 
+     async getAllCarsStatus(errorCallback) {
+        try {
+            const response = await this.client.get("/cars/all");
+            return response.data;
+        } catch (error) {
+            this.handleError("getAllCarsStatus", error, errorCallback);
+        }
+     }
+
+     async getAvailableCars(errorCallback) {
+        try {
+            const response = await this.client.get("/cars/available");
+            return response.data;
+        } catch (error) {
+            this.handleError("getAvailableCars", error, errorCallback);
+        }
+     }
+
+     async getCarsInService(errorCallback) {
+        try {
+            const response = await this.client.get("/cars/service");
+            return response.data;
+        } catch (error) {
+            this.handleError("getCarsInService", error, errorCallback);
+        }
+     }
+
      async updateAvailabilityStatus(trackingId, isAvailable, dateRented, returnDate, errorCallback) {
         try {
             const response = await this.client.put(`/cars/${trackingId}`, {
@@ -72,15 +99,6 @@ import axios from 'axios'
             return response.data;
         } catch (error) {
             this.handleError("updateAvailabilityStatus", error, errorCallback);
-        }
-     }
-
-     async getAllCarsStatus(errorCallback) {
-        try {
-            const response = await this.client.get("/cars/all");
-            return response.data;
-        } catch (error) {
-            this.handleError("getAllCarsStatus", error, errorCallback);
         }
      }
 

@@ -1,42 +1,27 @@
 package com.kenzie.appserver.service.model;
 
-import java.util.Objects;
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
-
 public class Car {
-    private final String trackingId;
+    private final String id;
     private final String make;
     private final String model;
     private final int year;
-    private Boolean isAvailable;
-    private String dateRented;
-    private String returnDate;
+    private final boolean isAvailable;
+    private final String dateRented;
+    private final String returnDate;
 
-    public Car(String make, String model, int year) {
+    public Car(String id, String make, String model, int year, boolean isAvailable, String dateRented,
+               String returnDate) {
+        this.id = id;
         this.make = make;
         this.model = model;
         this.year = year;
-        this.trackingId = randomUUID().toString();
-        this.isAvailable = true;
-        this.dateRented = "N/A";
-        this.returnDate = "N/A";
-    }
-
-    public Car(String make, String model, int year, String trackingId, Boolean isAvailable, String dateRented,
-               String returnDate){
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.trackingId = trackingId;
         this.isAvailable = isAvailable;
         this.dateRented = dateRented;
         this.returnDate = returnDate;
     }
 
-    public String getTrackingId() {
-        return trackingId;
+    public String getId() {
+        return id;
     }
 
     public String getMake() {
@@ -51,40 +36,15 @@ public class Car {
         return year;
     }
 
-    public Boolean getAvailable() {
+    public boolean getIsAvailable() {
         return isAvailable;
-    }
-
-    public void setAvailable(Boolean isAvailable) {
-        this.isAvailable = isAvailable;
     }
 
     public String getDateRented() {
         return dateRented;
     }
 
-    public void setDateRented(String dateRented) {
-        this.dateRented = dateRented;
-    }
-
     public String getReturnDate() {
         return returnDate;
-    }
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return year == car.year && Objects.equals(trackingId, car.trackingId) && Objects.equals(make, car.make) && Objects.equals(model, car.model) && Objects.equals(isAvailable, car.isAvailable) && Objects.equals(dateRented, car.dateRented) && Objects.equals(returnDate, car.returnDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(trackingId, make, model, year, isAvailable, dateRented, returnDate);
     }
 }

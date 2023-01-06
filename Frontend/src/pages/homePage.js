@@ -35,7 +35,6 @@ class HomePage extends BaseClass {
         let year = document.getElementById("car-year").value;
 
         const addedCar = await this.client.addCar(make, model, year, this.errorHandler);
-       // this.dataStore.set("car", addedCar);
 
         if (addedCar) {
             this.showMessage(`Added ${addedCar.make}!`);
@@ -141,7 +140,7 @@ class HomePage extends BaseClass {
 
             secondResultArea.innerHTML = `
                 <div>Available: ${car.isAvailable}</div>
-                <div>Tracking ID: ${car.trackingId}</div>
+                <div>Tracking ID: ${car.id}</div>
                 <div>Date Rented: ${car.dateRented}</div>
             `;
 

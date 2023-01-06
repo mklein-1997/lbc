@@ -7,54 +7,54 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "Cars")
+@DynamoDBTable(tableName = "Car")
 public class CarRecord {
-    @Id
-    private String trackingId;
+
+    private String id;
     private String make;
     private String model;
     private int year;
-    private Boolean isAvailable;
+    private boolean isAvailable;
     private String dateRented;
     private String returnDate;
 
-    @DynamoDBHashKey(attributeName = "trackingId")
-    public String getTrackingId() {
-        return trackingId;
+    @DynamoDBHashKey(attributeName = "Id")
+    public String getId() {
+        return id;
     }
 
-    @DynamoDBAttribute(attributeName = "make")
+    @DynamoDBAttribute(attributeName = "Make")
     public String getMake() {
         return make;
     }
 
-    @DynamoDBAttribute(attributeName = "model")
+    @DynamoDBAttribute(attributeName = "Model")
     public String getModel() {
         return model;
     }
 
-    @DynamoDBAttribute(attributeName = "year")
+    @DynamoDBAttribute(attributeName = "Year")
     public int getYear() {
         return year;
     }
 
-    @DynamoDBAttribute(attributeName = "isAvailable")
-    public Boolean getIsAvailable() {
+    @DynamoDBAttribute(attributeName = "IsAvailable")
+    public boolean getAvailable() {
         return isAvailable;
     }
 
-    @DynamoDBAttribute(attributeName = "dateRented")
+    @DynamoDBAttribute(attributeName = "DateRented")
     public String getDateRented() {
         return dateRented;
     }
 
-    @DynamoDBAttribute(attributeName = "returnDate")
+    @DynamoDBAttribute(attributeName = "ReturnDate")
     public String getReturnDate() {
         return returnDate;
     }
 
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setMake(String make) {
@@ -69,7 +69,7 @@ public class CarRecord {
         this.year = year;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(boolean available) {
         isAvailable = available;
     }
 
@@ -86,11 +86,11 @@ public class CarRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarRecord carRecord = (CarRecord) o;
-        return year == carRecord.year && Objects.equals(trackingId, carRecord.trackingId) && Objects.equals(make, carRecord.make) && Objects.equals(model, carRecord.model) && Objects.equals(isAvailable, carRecord.isAvailable) && Objects.equals(dateRented, carRecord.dateRented) && Objects.equals(returnDate, carRecord.returnDate);
+        return year == carRecord.year && isAvailable == carRecord.isAvailable && id.equals(carRecord.id) && make.equals(carRecord.make) && model.equals(carRecord.model) && dateRented.equals(carRecord.dateRented) && returnDate.equals(carRecord.returnDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trackingId, make, model, year, isAvailable, dateRented, returnDate);
+        return Objects.hash(id, make, model, year, isAvailable, dateRented, returnDate);
     }
 }

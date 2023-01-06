@@ -33,10 +33,10 @@ class InventoryPage extends BaseClass {
                     html += "<img src='https://cdn.motor1.com/images/mgl/qzbeZ/s2/ferrari-488-pista-spider.jpg'>";
                     html += `<h3>${car.make} ${car.model}<h3>
                              <ul>
-                                <li id="font">Make: ${car.make}</li>
-                                <li id="font">Model: ${car.model}</li>
-                                <li id="font">Year: ${car.year}</li>
-                                <li id="font">Tracking ID: ${car.trackingId}</li>
+                                <li class="font">Make: ${car.make}</li>
+                                <li class="font">Model: ${car.model}</li>
+                                <li class="font">Year: ${car.year}</li>
+                                <li class="font">Tracking ID: ${car.id}</li>                        
                             </ul>`;
                     html += "<button class='button-1'>Copy ID</button>";
                     html += "</div>";

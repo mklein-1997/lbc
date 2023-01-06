@@ -2,9 +2,7 @@ package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 public class CarCreateRequest {
 
@@ -12,11 +10,9 @@ public class CarCreateRequest {
     @JsonProperty("make")
     private String make;
 
-    @NotEmpty
     @JsonProperty("model")
     private String model;
 
-    @Min(1000)
     @JsonProperty("year")
     private int year;
 
@@ -43,5 +39,4 @@ public class CarCreateRequest {
     public void setYear(int year) {
         this.year = year;
     }
-
 }

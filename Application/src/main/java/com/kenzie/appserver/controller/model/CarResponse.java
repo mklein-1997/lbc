@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarResponse {
 
-    @JsonProperty("trackingId")
-    private String trackingId;
+    @JsonProperty("id")
+    private String id;
 
     @JsonProperty("make")
     private String make;
@@ -19,7 +19,7 @@ public class CarResponse {
     private int year;
 
     @JsonProperty("isAvailable")
-    private Boolean isAvailable;
+    private boolean isAvailable;
 
     @JsonProperty("dateRented")
     private String dateRented;
@@ -27,13 +27,12 @@ public class CarResponse {
     @JsonProperty("returnDate")
     private String returnDate;
 
-
-    public String getTrackingId() {
-        return trackingId;
+    public String getId() {
+        return id;
     }
 
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMake() {
@@ -60,12 +59,12 @@ public class CarResponse {
         this.year = year;
     }
 
-    public Boolean getAvailable() {
+    public boolean getIsAvailable() {
         return isAvailable;
     }
 
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 
     public String getDateRented() {

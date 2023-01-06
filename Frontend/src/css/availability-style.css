@@ -36,6 +36,15 @@ h3 {
     transform: translate(0px, -8px);
 }
 
+#mainNavbar {
+    font-family: "Nunito", sans-serif;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
 img {
     width: 250px;
     height: 200px;
@@ -76,7 +85,7 @@ ul {
         border-radius: 0px 0px 20px 20px;
 }
 
-#font {
+.font {
     font-size: 20px;
     margin-left: -10px;
     text-align: left;
