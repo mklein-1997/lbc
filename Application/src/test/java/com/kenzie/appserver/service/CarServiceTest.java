@@ -93,6 +93,25 @@ public class CarServiceTest {
         verify(carRepository).deleteById(trackingId);
     }
 
+    @Test
+    public void removeCar_nullId_throwsCarNotFoundException() {
+        //GIVEN
+        String id = null;
+
+        //WHEN && THEN
+        Assertions.assertThrows(CarNotFoundException.class, () -> carService.removeCar(id));
+    }
+
+    @Test
+    public void removeCar_repoReturnsNull_throwsCarNotFoundException() {
+        //GIVEN
+        String id = randomUUID().toString();
+        when(carRepository.findById(id)).thenReturn(Optional.empty());
+
+        //WHEN && THEN
+        Assertions.assertThrows(CarNotFoundException.class, () -> carService.removeCar(id));
+    }
+
     /** ------------------------------------------------------------------------
      * carService.findById()
      * ------------------------------------------------------------------------**/
@@ -310,143 +329,34 @@ public class CarServiceTest {
     }
 
     /** ------------------------------------------------------------------------
-     *  carService.rentCar()
+     *  carService.updateCar()
      *  ------------------------------------------------------------------------ **/
 
     @Test
-    public void rentCar() {
+    public void updateCar() {
         //GIVEN
         Car testCar = new Car(randomUUID().toString(), "Chevrolet", "Camaro", 1977,
-                true, "N/A", "N/A");
-
-        CarRecord record = new CarRecord();
-        record.setMake(testCar.getMake());
-        record.setModel(testCar.getModel());
-        record.setYear(testCar.getYear());
-        record.setId(testCar.getId());
-        record.setAvailable(testCar.getIsAvailable());
-        record.setDateRented(testCar.getDateRented());
-        record.setReturnDate(testCar.getReturnDate());
-
-        when(carRepository.findById(any())).thenReturn(Optional.of(record));
-
-        ArgumentCaptor<CarRecord> carRecordCaptor = ArgumentCaptor.forClass(CarRecord.class);
+                false, "rented", "rented");
+        when(carRepository.existsById(testCar.getId())).thenReturn(true);
 
         //WHEN
-        carService.rentCar(testCar.getId(), "rented", "returned");
+        carService.updateCar(testCar);
 
         //THEN
-        verify(carRepository).save(carRecordCaptor.capture());
-
-        CarRecord result = carRecordCaptor.getValue();
-
-        Assertions.assertNotEquals("N/A", result.getDateRented());
-        Assertions.assertNotEquals("N/A", result.getReturnDate());
-        Assertions.assertFalse(result.getAvailable());
+        verify(carRepository).save(any(CarRecord.class));
     }
 
     @Test
-    public void rentCar_repoReturnsNull_throwsCarNotFoundException() {
-        //GIVEN
-        String id = randomUUID().toString();
-        when(carRepository.findById(id)).thenReturn(Optional.empty());
-
-        //WHEN && THEN
-        Assertions.assertThrows(CarNotFoundException.class, () ->
-                carService.rentCar(id, "rented", "returned"));
-    }
-
-    /** ------------------------------------------------------------------------
-     *  carService.serviceCar()
-     *  ------------------------------------------------------------------------ **/
-
-    @Test
-    public void serviceCar() {
+    public void updateCar_carDoesNotExist_doesNothing() {
         //GIVEN
         Car testCar = new Car(randomUUID().toString(), "Chevrolet", "Camaro", 1977,
-                true, "N/A", "N/A");
-
-        CarRecord record = new CarRecord();
-        record.setMake(testCar.getMake());
-        record.setModel(testCar.getModel());
-        record.setYear(testCar.getYear());
-        record.setId(testCar.getId());
-        record.setAvailable(testCar.getIsAvailable());
-        record.setDateRented(testCar.getDateRented());
-        record.setReturnDate(testCar.getReturnDate());
-
-        when(carRepository.findById(any())).thenReturn(Optional.of(record));
-
-        ArgumentCaptor<CarRecord> carRecordCaptor = ArgumentCaptor.forClass(CarRecord.class);
+                false, "rented", "rented");
+        when(carRepository.existsById(testCar.getId())).thenReturn(false);
 
         //WHEN
-        carService.serviceCar(testCar.getId());
+        carService.updateCar(testCar);
 
         //THEN
-        verify(carRepository).save(carRecordCaptor.capture());
-
-        CarRecord result = carRecordCaptor.getValue();
-
-        Assertions.assertEquals("N/A", result.getDateRented());
-        Assertions.assertEquals("N/A", result.getReturnDate());
-        Assertions.assertFalse(result.getAvailable());
-    }
-
-    @Test
-    public void serviceCar_repoReturnsNull_throwsCarNotFoundException() {
-        //GIVEN
-        String id = randomUUID().toString();
-        when(carRepository.findById(id)).thenReturn(Optional.empty());
-
-        //WHEN && THEN
-        Assertions.assertThrows(CarNotFoundException.class, () ->
-                carService.serviceCar(id));
-    }
-
-    /** ------------------------------------------------------------------------
-     *  carService.returnCar()
-     *  ------------------------------------------------------------------------ **/
-
-    @Test
-    public void returnCar() {
-        //GIVEN
-        Car testCar = new Car(randomUUID().toString(), "Chevrolet", "Camaro", 1977,
-                true, "N/A", "N/A");
-
-        CarRecord record = new CarRecord();
-        record.setMake(testCar.getMake());
-        record.setModel(testCar.getModel());
-        record.setYear(testCar.getYear());
-        record.setId(testCar.getId());
-        record.setAvailable(testCar.getIsAvailable());
-        record.setDateRented(testCar.getDateRented());
-        record.setReturnDate(testCar.getReturnDate());
-
-        when(carRepository.findById(any())).thenReturn(Optional.of(record));
-
-        ArgumentCaptor<CarRecord> carRecordCaptor = ArgumentCaptor.forClass(CarRecord.class);
-
-        //WHEN
-        carService.returnCar(testCar.getId());
-
-        //THEN
-        verify(carRepository).save(carRecordCaptor.capture());
-
-        CarRecord result = carRecordCaptor.getValue();
-
-        Assertions.assertTrue(result.getAvailable());
-        Assertions.assertEquals("N/A", result.getDateRented());
-        Assertions.assertEquals("N/A", result.getReturnDate());
-    }
-
-    @Test
-    public void returnCar_repoReturnsNull_throwsCarNotFoundException() {
-        //GIVEN
-        String id = randomUUID().toString();
-        when(carRepository.findById(id)).thenReturn(Optional.empty());
-
-        //WHEN && THEN
-        Assertions.assertThrows(CarNotFoundException.class, () ->
-                carService.returnCar(id));
+        verify(carRepository, times(0)).save(any(CarRecord.class));
     }
 }

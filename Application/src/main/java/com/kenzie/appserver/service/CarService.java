@@ -97,58 +97,18 @@ public class CarService {
         return carList;
     }
 
-    public void rentCar(String id, String dateRented, String returnDate) {
-        Car carFromBackend = findById(id);
-
-        if (carFromBackend == null) {
-            throw new CarNotFoundException("Id provided does not match current inventory!");
+    public void updateCar(Car car) {
+        if (carRepository.existsById(car.getId())) {
+            CarRecord record = new CarRecord();
+            record.setMake(car.getMake());
+            record.setModel(car.getModel());
+            record.setYear(car.getYear());
+            record.setAvailable(car.getIsAvailable());
+            record.setId(car.getId());
+            record.setDateRented(car.getDateRented());
+            record.setReturnDate(car.getReturnDate());
+            carRepository.save(record);
         }
-
-        CarRecord record = new CarRecord();
-        record.setId(id);
-        record.setMake(carFromBackend.getMake());
-        record.setModel(carFromBackend.getModel());
-        record.setYear(carFromBackend.getYear());
-        record.setAvailable(false);
-        record.setDateRented(dateRented);
-        record.setReturnDate(returnDate);
-        carRepository.save(record);
-    }
-
-    public void serviceCar(String id) {
-        Car carFromBackend = findById(id);
-
-        if (carFromBackend == null) {
-            throw new CarNotFoundException("Id provided does not match current inventory!");
-        }
-
-        CarRecord record = new CarRecord();
-        record.setId(id);
-        record.setMake(carFromBackend.getMake());
-        record.setModel(carFromBackend.getModel());
-        record.setYear(carFromBackend.getYear());
-        record.setAvailable(false);
-        record.setDateRented("N/A");
-        record.setReturnDate("N/A");
-        carRepository.save(record);
-    }
-
-    public void returnCar(String id) {
-        Car carFromBackend = findById(id);
-
-        if (carFromBackend == null) {
-            throw new CarNotFoundException("Id provided does not match current inventory!");
-        }
-
-        CarRecord record = new CarRecord();
-        record.setId(id);
-        record.setMake(carFromBackend.getMake());
-        record.setModel(carFromBackend.getModel());
-        record.setYear(carFromBackend.getYear());
-        record.setAvailable(true);
-        record.setDateRented("N/A");
-        record.setReturnDate("N/A");
-        carRepository.save(record);
     }
 
     private Car recordToCar(CarRecord carRecord) {
