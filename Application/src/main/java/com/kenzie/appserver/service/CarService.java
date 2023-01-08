@@ -97,44 +97,58 @@ public class CarService {
         return carList;
     }
 
-    public Car rentCar(String id, String dateRented, String returnDate) {
+    public void rentCar(String id, String dateRented, String returnDate) {
         Car carFromBackend = findById(id);
 
         if (carFromBackend == null) {
             throw new CarNotFoundException("Id provided does not match current inventory!");
         }
 
-        carFromBackend.setAvailable(false);
-        carFromBackend.setDateRented(dateRented);
-        carFromBackend.setReturnDate(returnDate);
-
-        return carFromBackend;
+        CarRecord record = new CarRecord();
+        record.setId(id);
+        record.setMake(carFromBackend.getMake());
+        record.setModel(carFromBackend.getModel());
+        record.setYear(carFromBackend.getYear());
+        record.setAvailable(false);
+        record.setDateRented(dateRented);
+        record.setReturnDate(returnDate);
+        carRepository.save(record);
     }
 
-    public Car serviceCar(String id) {
+    public void serviceCar(String id) {
         Car carFromBackend = findById(id);
 
         if (carFromBackend == null) {
             throw new CarNotFoundException("Id provided does not match current inventory!");
         }
 
-        carFromBackend.setAvailable(false);
-
-        return carFromBackend;
+        CarRecord record = new CarRecord();
+        record.setId(id);
+        record.setMake(carFromBackend.getMake());
+        record.setModel(carFromBackend.getModel());
+        record.setYear(carFromBackend.getYear());
+        record.setAvailable(false);
+        record.setDateRented("N/A");
+        record.setReturnDate("N/A");
+        carRepository.save(record);
     }
 
-    public Car returnCar(String id) {
+    public void returnCar(String id) {
         Car carFromBackend = findById(id);
 
         if (carFromBackend == null) {
             throw new CarNotFoundException("Id provided does not match current inventory!");
         }
 
-        carFromBackend.setAvailable(true);
-        carFromBackend.setDateRented("N/A");
-        carFromBackend.setReturnDate("N/A");
-
-        return carFromBackend;
+        CarRecord record = new CarRecord();
+        record.setId(id);
+        record.setMake(carFromBackend.getMake());
+        record.setModel(carFromBackend.getModel());
+        record.setYear(carFromBackend.getYear());
+        record.setAvailable(true);
+        record.setDateRented("N/A");
+        record.setReturnDate("N/A");
+        carRepository.save(record);
     }
 
     private Car recordToCar(CarRecord carRecord) {
