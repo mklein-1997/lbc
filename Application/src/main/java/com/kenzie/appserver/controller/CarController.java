@@ -122,8 +122,9 @@ public class CarController {
 
         return ResponseEntity.ok(carResponses);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<CarResponse> serviceCar(@RequestBody CarUpdateRequest carUpdateRequest)
+    public ResponseEntity<CarResponse> updateCarAvailability(@RequestBody CarUpdateRequest carUpdateRequest)
     {
         Car currentState = carService.findById(carUpdateRequest.getId());
 
