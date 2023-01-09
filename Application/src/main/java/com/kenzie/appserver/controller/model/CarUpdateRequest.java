@@ -8,8 +8,8 @@ import javax.validation.constraints.NotEmpty;
 public class CarUpdateRequest {
 
     @NotEmpty
-    @JsonProperty("trackingId")
-    private String trackingId;
+    @JsonProperty("id")
+    private String id;
 
     @NotEmpty
     @JsonProperty("make")
@@ -34,12 +34,12 @@ public class CarUpdateRequest {
     @JsonProperty("returnDate")
     private String returnDate;
 
-    public String getTrackingId() {
-        return trackingId;
+    public String getId() {
+        return id;
     }
 
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
+    public void setTrackingId(String id) {
+        this.id = id;
     }
 
     public String getMake() {

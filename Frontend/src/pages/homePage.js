@@ -50,8 +50,8 @@ class HomePage extends BaseClass {
 
         let trackingId = document.getElementById("car-service").value;
         let isAvailable = false;
-        let dateRented = null;
-        let returnDate = null;
+        let dateRented = "N/A";
+        let returnDate = "N/A";
 
         const updatedAvailability = await this.client.updateAvailabilityStatus(trackingId, isAvailable, dateRented,
             returnDate, this.errorHandler);
@@ -103,8 +103,8 @@ class HomePage extends BaseClass {
 
         let trackingId = document.getElementById("car-return").value;
         let isAvailable = true;
-        let dateRented = null;
-        let returnDate = null;
+        let dateRented = "N/A";
+        let returnDate = "N/A";
 
         const returnedCar = await this.client.updateAvailabilityStatus(trackingId, isAvailable, dateRented, returnDate,
             this.errorHandler);

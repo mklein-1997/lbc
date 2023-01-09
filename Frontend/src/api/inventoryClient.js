@@ -92,6 +92,7 @@ import axios from 'axios'
      async updateAvailabilityStatus(trackingId, isAvailable, dateRented, returnDate, errorCallback) {
         try {
             const response = await this.client.put(`/cars/${trackingId}`, {
+                "id": trackingId,
                 "isAvailable": isAvailable,
                 "dateRented": dateRented,
                 "returnDate": returnDate
