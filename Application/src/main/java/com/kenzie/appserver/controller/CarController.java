@@ -2,6 +2,7 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.CarCreateRequest;
 import com.kenzie.appserver.controller.model.CarResponse;
+import com.kenzie.appserver.controller.model.CarUpdateRequest;
 import com.kenzie.appserver.service.CarService;
 
 import com.kenzie.appserver.service.model.Car;
@@ -121,6 +122,31 @@ public class CarController {
 
         return ResponseEntity.ok(carResponses);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CarResponse> serviceCar(@RequestBody CarUpdateRequest carUpdateRequest)
+    {
+        Car currentState = carService.findById(carUpdateRequest.getId());
+
+        //if car is not found
+        if(currentState == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        Car car = new Car(carUpdateRequest.getId(),currentState.getMake(),currentState.getModel(),
+                currentState.getYear(),carUpdateRequest.isAvailable(),carUpdateRequest.getDateRented(),carUpdateRequest.getReturnDate());
+
+
+        //if car is currently rented and trying to be rented then send bad request
+        if(!car.getDateRented().equalsIgnoreCase("n/a") && !currentState.getDateRented().equalsIgnoreCase("n/a")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        carService.updateCar(car);
+
+        return ResponseEntity.ok(carToResponse(car));
+    }
+
 
     private CarResponse carToResponse(Car car){
         CarResponse carResponse = new CarResponse();
