@@ -97,7 +97,21 @@ public class CarService {
         return carList;
     }
 
-    public Car recordToCar(CarRecord carRecord) {
+    public void updateCar(Car car) {
+        if (carRepository.existsById(car.getId())) {
+            CarRecord record = new CarRecord();
+            record.setMake(car.getMake());
+            record.setModel(car.getModel());
+            record.setYear(car.getYear());
+            record.setAvailable(car.getIsAvailable());
+            record.setId(car.getId());
+            record.setDateRented(car.getDateRented());
+            record.setReturnDate(car.getReturnDate());
+            carRepository.save(record);
+        }
+    }
+
+    private Car recordToCar(CarRecord carRecord) {
         return new Car(carRecord.getId(), carRecord.getMake(), carRecord.getModel(), carRecord.getYear(),
                 carRecord.getAvailable(), carRecord.getDateRented(), carRecord.getReturnDate());
     }
