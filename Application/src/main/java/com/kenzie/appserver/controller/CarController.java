@@ -122,7 +122,7 @@ public class CarController {
         return ResponseEntity.ok(carResponses);
     }
 
-//    @PutMapping
+//    @PutMapping(
 //    public ResponseEntity<CarResponse> updateAvailabilityStatus{}
 
     private CarResponse carToResponse(Car car){

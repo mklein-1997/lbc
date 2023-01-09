@@ -81,4 +81,12 @@ public class CarUpdateRequest {
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
     }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
 }
