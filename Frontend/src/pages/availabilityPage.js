@@ -30,7 +30,6 @@ class AvailabilityPage extends BaseClass {
         let html = "";
                 for (let car of availableCars) {
                     html += "<div class='content'>";
-                    html += "<img src='https://cdn.motor1.com/images/mgl/qzbeZ/s2/ferrari-488-pista-spider.jpg'>";
                     html += `<h3>${car.make} ${car.model}<h3>
                              <ul>
                                 <li class="font">Make: ${car.make}</li>
@@ -38,7 +37,6 @@ class AvailabilityPage extends BaseClass {
                                 <li class="font">Year: ${car.year}</li>
                                 <li class="font">Tracking ID: ${car.id}</li>
                             </ul>`;
-                    html += "<button class='button-1'>Copy ID</button>";
                     html += "</div>";
                 }
 
