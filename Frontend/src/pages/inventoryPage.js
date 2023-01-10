@@ -36,7 +36,11 @@ class InventoryPage extends BaseClass {
                                 <li class="font">Make: ${car.make}</li>
                                 <li class="font">Model: ${car.model}</li>
                                 <li class="font">Year: ${car.year}</li>
+<<<<<<< HEAD
                                 <li class="font">Tracking ID: ${car.id}</li>                        
+=======
+                                <li class="font">Tracking ID: ${car.id}</li>
+>>>>>>> b3d49e2 (Frontend CSS Fixed Navbar and JavaScript)
                             </ul>`;
                     html += "</div>";
                 }
