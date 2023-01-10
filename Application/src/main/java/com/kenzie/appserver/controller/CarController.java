@@ -49,7 +49,7 @@ public class CarController {
     public ResponseEntity<List<CarResponse>> getAllCarsStatus() {
         List<Car> cars = carService.getAllCarsStatus();
 
-        if (cars == null || cars.isEmpty()) {
+        if (cars.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
@@ -83,10 +83,6 @@ public class CarController {
     @DeleteMapping("/{id}")
     public ResponseEntity<CarResponse> removeCar(@PathVariable("id") String trackingId){
         Car car = carService.removeCar(trackingId);
-
-        if(car == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
 
         return ResponseEntity.ok().body(carToResponse(car));
     }
@@ -124,7 +120,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarResponse> serviceCar(@RequestBody CarUpdateRequest carUpdateRequest)
+    public ResponseEntity<CarResponse> updateAvailabilityStatus(@RequestBody CarUpdateRequest carUpdateRequest)
     {
         Car currentState = carService.findById(carUpdateRequest.getId());
 
@@ -146,7 +142,6 @@ public class CarController {
 
         return ResponseEntity.ok(carToResponse(car));
     }
-
 
     private CarResponse carToResponse(Car car){
         CarResponse carResponse = new CarResponse();
