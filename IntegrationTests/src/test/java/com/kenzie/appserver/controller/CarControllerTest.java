@@ -43,7 +43,6 @@ class CarControllerTest {
     @BeforeEach
     void setup(){
         String id = UUID.randomUUID().toString();
-        String name = mockNeat.strings().valStr();
         String model = mockNeat.strings().valStr();
         String make = mockNeat.strings().valStr();
         int year = 5000;

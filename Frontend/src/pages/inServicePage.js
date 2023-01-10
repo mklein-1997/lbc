@@ -41,10 +41,10 @@ class InServicePage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (!carsInService) {
-            resultArea.innerHTML = "No cars being serviced";
-        } else {
+        if (carsInService) {
             resultArea.innerHTML = html;
+        } else {
+            resultArea.innerHTML = "No cars being serviced";
         }
     }
 

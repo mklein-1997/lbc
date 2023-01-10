@@ -41,10 +41,10 @@ class AvailabilityPage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (!availableCars) {
-            resultArea.innerHTML = "No available cars";
-        } else {
+        if (availableCars) {
             resultArea.innerHTML = html;
+        } else {
+            resultArea.innerHTML = "No available cars";
         }
     }
 

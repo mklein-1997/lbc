@@ -41,10 +41,10 @@ class InventoryPage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (!allCars) {
-            resultArea.innerHTML = "No cars";
-        } else {
+        if (allCars) {
             resultArea.innerHTML = html;
+        } else {
+            resultArea.innerHTML = "No cars";
         }
     }
 
