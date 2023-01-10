@@ -125,13 +125,28 @@ class HomePage extends BaseClass {
         let result = await this.client.getCarStatus(id, this.errorHandler);
         this.dataStore.set("cars", result);
 
+        let imageResultArea = document.getElementById("image-area");
         let firstResultArea = document.getElementById("first-details");
         let secondResultArea = document.getElementById("second-details");
         let thirdResultArea = document.getElementById("third-details");
 
         let car = this.dataStore.get("cars");
 
+        let availableImage = "<img class='img-fluid' id='img' src='https://i.pinimg.com/originals/1f/b3/fd/1fb3fd287f851da90e3ec73b10be294a.gif'/>";
+        let inServiceImage = "<img class='img-fluid' id='img' src='https://cdn.dribbble.com/users/207059/screenshots/16573461/ms_11.gif'/>";
+
         if (car) {
+
+            if (car.isAvailable == true) {
+                imageResultArea.innerHTML = availableImage;
+            }
+
+            if (car.isAvailable == false) {
+                if (car.dateRented == "n/a" || car.dateRented == "N/A") {
+                   imageResultArea.innerHTML = inServiceImage;
+               }
+            }
+
             firstResultArea.innerHTML = `
                 <div>Make: ${car.make}</div>
                 <div>Model: ${car.model}</div>

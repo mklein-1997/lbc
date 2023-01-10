@@ -30,6 +30,7 @@ class InServicePage extends BaseClass {
         let html = "";
                 for (let car of carsInService) {
                     html += "<div class='content'>";
+                    html += "<img src='https://cdn.dribbble.com/users/207059/screenshots/16573461/ms_11.gif'>";
                     html += `<h3>${car.make} ${car.model}<h3>
                              <ul>
                                 <li class="font">Make: ${car.make}</li>
@@ -40,10 +41,10 @@ class InServicePage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (carsInService) {
-            resultArea.innerHTML = html;
-        } else {
+        if (!carsInService) {
             resultArea.innerHTML = "No cars being serviced";
+        } else {
+            resultArea.innerHTML = html;
         }
     }
 

@@ -30,6 +30,7 @@ class InventoryPage extends BaseClass {
         let html = "";
                 for (let car of allCars) {
                     html += "<div class='content'>";
+                    html += "<img src='https://gowhsehub.io/wp-content/uploads/2021/06/warehouse-and-forklift-animation.gif'>";
                     html += `<h3>${car.make} ${car.model}<h3>
                              <ul>
                                 <li class="font">Make: ${car.make}</li>
@@ -40,10 +41,10 @@ class InventoryPage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (allCars) {
-            resultArea.innerHTML = html;
-        } else {
+        if (!allCars) {
             resultArea.innerHTML = "No cars";
+        } else {
+            resultArea.innerHTML = html;
         }
     }
 

@@ -30,6 +30,7 @@ class AvailabilityPage extends BaseClass {
         let html = "";
                 for (let car of availableCars) {
                     html += "<div class='content'>";
+                    html += "<img src='https://i.pinimg.com/originals/1f/b3/fd/1fb3fd287f851da90e3ec73b10be294a.gif'>";
                     html += `<h3>${car.make} ${car.model}<h3>
                              <ul>
                                 <li class="font">Make: ${car.make}</li>
@@ -40,10 +41,10 @@ class AvailabilityPage extends BaseClass {
                     html += "</div>";
                 }
 
-        if (availableCars) {
-            resultArea.innerHTML = html;
-        } else {
+        if (!availableCars) {
             resultArea.innerHTML = "No available cars";
+        } else {
+            resultArea.innerHTML = html;
         }
     }
 
