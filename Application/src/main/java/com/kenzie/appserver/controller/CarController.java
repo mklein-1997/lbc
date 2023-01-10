@@ -122,7 +122,6 @@ public class CarController {
 
         return ResponseEntity.ok(carResponses);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<CarResponse> serviceCar(@RequestBody CarUpdateRequest carUpdateRequest)
     {
@@ -146,7 +145,6 @@ public class CarController {
 
         return ResponseEntity.ok(carToResponse(car));
     }
-
 
     private CarResponse carToResponse(Car car){
         CarResponse carResponse = new CarResponse();
