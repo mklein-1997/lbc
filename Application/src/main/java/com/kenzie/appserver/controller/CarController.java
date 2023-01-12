@@ -138,6 +138,11 @@ public class CarController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
+        if (!currentState.getIsAvailable() && currentState.getDateRented().equalsIgnoreCase("n/a") &&
+        !car.getDateRented().equalsIgnoreCase("n/a")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         carService.updateCar(car);
 
         return ResponseEntity.ok(carToResponse(car));
