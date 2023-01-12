@@ -138,6 +138,7 @@ public class CarController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
+        // if current state of car is being serviced, then it cannot be rented
         if (!currentState.getIsAvailable() && currentState.getDateRented().equalsIgnoreCase("n/a") &&
         !car.getDateRented().equalsIgnoreCase("n/a")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
